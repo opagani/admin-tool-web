@@ -1,0 +1,31 @@
+{
+  "name": "@zg-rentals/rent-guarantee-admin-web",
+  "projectType": "application",
+  "targets": {
+    "test": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "./rjs test apps/rent-guarantee-admin-web"
+      }
+    },
+    "build": {
+      "inputs": ["default", { "env": "BUILD_NUMBER" }, { "env": "ZG_ENV" }],
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "./rjs ws run rent-guarantee-admin-web build"
+      }
+    },
+    "tsc": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "./rjs tsc -w rent-guarantee-admin-web"
+      }
+    },
+    "lint": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "./rjs lint apps/rent-guarantee-admin-web --quiet"
+      }
+    }
+  }
+}

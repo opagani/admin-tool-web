@@ -1,0 +1,5 @@
+{
+  "extends": "@zg-rentals/tsconfig/strict",
+  "include": ["./**/*", "*.json", "../../declarations/**/*", "./declarations/**/*"],
+  "exclude": ["./dist/**/*"]
+}

@@ -1,0 +1,13 @@
+fragment cancelPolicy on CancelPolicyResponse {
+  success
+  httpStatus
+  error {
+    message
+  }
+}
+
+mutation CancelPolicy($policyId: String!, $caseNumber: String!, $note: String!) {
+  cancelPolicy(policyId: $policyId, caseNumber: $caseNumber, note: $note) {
+    ...cancelPolicy
+  }
+}

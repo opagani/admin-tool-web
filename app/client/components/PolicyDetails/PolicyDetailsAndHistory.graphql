@@ -1,0 +1,167 @@
+fragment policyDetails on PolicyDetails {
+  policyId
+  property {
+    listingAlias
+    street
+    city
+    state
+    zip
+  }
+  lease {
+    id
+    monthlyRentUsd
+    startDate
+    endDate
+    securityDeposit
+  }
+  payments {
+    id
+    termType
+    firstExpectedPaymentDate {
+      year
+      month
+      day
+    }
+    finalExpectedPaymentDate {
+      year
+      month
+      day
+    }
+    firstSuccessfulPaymentDate {
+      year
+      month
+      day
+    }
+    mostRecentSuccessfulPaymentDate {
+      year
+      month
+      day
+    }
+    rentTermsCancelledDate {
+      year
+      month
+      day
+    }
+    daysDelinquent
+  }
+  landlords {
+    id
+    firstName
+    lastName
+    email
+    phone
+  }
+  applicationEligibility {
+    applicationId
+    applicationEligibilityStatus
+  }
+  renters {
+    renterId
+    firstName
+    lastName
+    email
+    phone
+    creditCheckEligibleFlag
+    incomeToRentEligibleFlag
+  }
+  leaseLockBinder {
+    id
+    issueDate {
+      year
+      month
+      day
+    }
+    effectiveDate {
+      year
+      month
+      day
+    }
+    expirationDate {
+      year
+      month
+      day
+    }
+    cancelDate {
+      year
+      month
+      day
+    }
+    binderStatus
+  }
+  leaseLockCertificate {
+    id
+    issueDate {
+      year
+      month
+      day
+    }
+    effectiveDate {
+      year
+      month
+      day
+    }
+    expirationDate {
+      year
+      month
+      day
+    }
+    cancelDate {
+      year
+      month
+      day
+    }
+    certificateStatus
+  }
+  quote {
+    quoteId
+    premium
+    coverage
+    firstMonthStampingFee
+    firstMonthSurplusLines
+    firstMonthTotal
+    recurringMonthSurplusLines
+    recurringMonthTotal
+  }
+  premiumTransactions {
+    transactionId
+    transactionType
+    premiumAmountInCents
+    chargeId
+    chargeStatus
+    payoutStatus
+    formattedChargeDate(delimiter: $delimiter)
+    formattedTransactionCreatedDate(delimiter: $delimiter)
+    formattedTransactionUpdatedDate(delimiter: $delimiter)
+  }
+  monthlyPremiumPayments {
+    sequenceNumber
+    invoiceDate
+    totalDueAmount
+    premiumAmount
+    stampingFeeAmount
+    surplusLinesTaxAmount
+  }
+  policyStatus
+  isCancellable
+  isEligibleToReinstate
+}
+
+fragment historyForRelatedActions on HistoryForPolicyRelatedActions {
+  logs {
+    policyId
+    action
+    createdDate
+    message
+    source
+    sourceId
+  }
+}
+
+query PolicyRelatedActionsDetailsAndHistory($policyId: String!, $delimiter: String) {
+  expandedPolicyDetails(policyId: $policyId) {
+    ...policyDetails
+  }
+  historyForPolicyRelatedActions(policyId: $policyId) {
+    ...historyForRelatedActions
+  }
+}

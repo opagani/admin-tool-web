@@ -1,0 +1,12 @@
+fragment policyStatuses on PolicyStatuses {
+  values {
+    value
+    displayName
+  }
+}
+
+query PolicyStatuses {
+  policyStatuses {
+    ...policyStatuses
+  }
+}

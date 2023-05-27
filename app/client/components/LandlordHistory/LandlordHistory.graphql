@@ -1,0 +1,21 @@
+fragment history on History {
+  logs {
+    idType
+    idValue
+    action
+    userToken
+    message
+    createdDate
+  }
+}
+
+enum LogIdType {
+  listingAlias
+  userToken
+}
+
+query LandlordHistory($searchType: LogIdType!, $searchValue: String!) {
+  history(logIdType: $searchType, logIdValue: $searchValue) {
+    ...history
+  }
+}

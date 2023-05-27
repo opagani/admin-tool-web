@@ -1,0 +1,65 @@
+fragment policies on Policies {
+  policies {
+    createdDate
+    updatedDate
+    listingAlias
+    isActive
+    policyStatus
+    applicationId {
+      id
+    }
+    leaseId {
+      id
+    }
+    paymentId {
+      id
+    }
+    policyId
+    leaseTermStartDate
+    leaseTermEndDate
+    policyTermStartDate
+    policyTermEndDate
+    landlordUserToken
+    renterIds
+  }
+  totalResults
+}
+
+fragment history on History {
+  logs {
+    idType
+    idValue
+    action
+    userToken
+    message
+    createdDate
+  }
+}
+
+enum LogIdType {
+  listingAlias
+  userToken
+}
+
+query PoliciesAndHistory(
+  $searchType: LogIdType!
+  $searchValue: String!
+  $pageSize: Int!
+  $fromIndex: Int!
+  $sortBy: SortBy
+  $sortDir: SortDir
+) {
+  searchPolicies(
+    searchType: "listingAlias"
+    searchValue: $searchValue
+    pageSize: $pageSize
+    fromIndex: $fromIndex
+    sortBy: $sortBy
+    sortDir: $sortDir
+  ) {
+    ...policies
+  }
+  history(logIdType: $searchType, logIdValue: $searchValue) {
+    ...history
+  }
+}

@@ -1,0 +1,14 @@
+overwrite: true
+schema: 'http://localhost:4000/rent-guarantee-graphql/graphql'
+documents: 'app/client/**/*/*.graphql'
+generates:
+  app/client/generated-types/graphql.ts:
+    plugins:
+      - typescript
+      - typescript-operations
+      - typescript-react-query
+    config:
+      fetcher: graphql-request
+      exposeQueryKeys: true
+      scalars:
+        Date: Date

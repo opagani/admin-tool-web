@@ -1,0 +1,12 @@
+fragment policySearchTypes on PolicySearchTypes {
+  values {
+    value
+    displayName
+  }
+}
+
+query PolicySearchTypes {
+  policySearchTypes {
+    ...policySearchTypes
+  }
+}

@@ -1,0 +1,46 @@
+fragment policies on Policies {
+  policies {
+    createdDate
+    updatedDate
+    listingAlias
+    isActive
+    policyStatus
+    applicationId {
+      id
+    }
+    leaseId {
+      id
+    }
+    paymentId {
+      id
+    }
+    policyId
+    leaseTermStartDate
+    leaseTermEndDate
+    policyTermStartDate
+    policyTermEndDate
+    landlordUserToken
+    renterIds
+  }
+  totalResults
+}
+
+query SearchPolicies(
+  $searchType: String!
+  $searchValue: String!
+  $pageSize: Int!
+  $fromIndex: Int!
+  $sortBy: SortBy
+  $sortDir: SortDir
+) {
+  searchPolicies(
+    searchType: $searchType
+    searchValue: $searchValue
+    pageSize: $pageSize
+    fromIndex: $fromIndex
+    sortBy: $sortBy
+    sortDir: $sortDir
+  ) {
+    ...policies
+  }
+}

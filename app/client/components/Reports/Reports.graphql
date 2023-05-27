@@ -1,0 +1,91 @@
+fragment reports on Reports {
+  reportsDetails {
+    reportName
+    reportDescription
+    methodToInvoke
+    methodParamsDetails {
+      paramName
+      paramDataType
+      paramDefaultValue
+    }
+  }
+}
+
+query Reports($reportType: String) {
+  reports(reportType: $reportType) {
+    ...reports
+  }
+}
+
+fragment landlord on Landlords {
+  rentGuaranteeLandlords {
+    landlord {
+      landlordUserToken
+      firstName
+      lastName
+      emails
+      phones
+    }
+  }
+}
+
+query LandlordsDataForReports($methodToInvoke: String!, $urlParams: String) {
+  landlordsDataForReports(methodToInvoke: $methodToInvoke, urlParams: $urlParams) {
+    ...landlord
+  }
+}
+
+fragment listingActivity on ListingActivity {
+  __typename
+  idType
+  idValue
+  action
+  createdDate
+  userToken
+  message
+}
+
+fragment userActivity on UserActivity {
+  __typename
+  idType
+  idValue
+  action
+  createdDate
+  userToken
+  message
+}
+
+fragment applicationActivity on ApplicationActivity {
+  __typename
+  applicationId
+  incomeToRentEligible
+  incomeUpdatedDate
+  listingAlias
+  createdDate
+  userToken
+}
+
+fragment voucherActivity on VoucherActivity {
+  __typename
+  applicationId
+  voucherToRentCoverage
+  listingAlias
+  createdDate
+  userToken
+}
+
+type UrlParams {
+  name: String!
+  value: String
+}
+
+query UserActivityDataForReports($methodToInvoke: String!, $urlParams: [UrlParams!]) {
+  userActivityDataForReports(methodToInvoke: $methodToInvoke, urlParams: $urlParams) {
+    userActivities {
+      ...listingActivity
+      ...userActivity
+      ...applicationActivity
+      ...voucherActivity
+    }
+  }
+}

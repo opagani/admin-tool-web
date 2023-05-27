@@ -1,0 +1,13 @@
+fragment reinstateDroppedPolicy on ReinstateDroppedPolicyResponse {
+  success
+  httpStatus
+  error {
+    message
+  }
+}
+
+mutation ReinstateDroppedPolicy($policyId: String!, $caseNumber: String!, $note: String!) {
+  reinstateDroppedPolicy(policyId: $policyId, caseNumber: $caseNumber, note: $note) {
+    ...reinstateDroppedPolicy
+  }
+}
